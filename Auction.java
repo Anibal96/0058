@@ -14,13 +14,15 @@ public class Auction
     // The number that will be given to the next lot entered
     // into this auction.
     private int nextLotNumber;
-
+    //Lista de objetos por los que no se han apostado.
+    private ArrayList<Lot> lotesSinApuestas;
     /**
      * Create a new auction.
      */
     public Auction()
     {
         lots = new ArrayList<Lot>();
+        lotesSinApuestas = new ArrayList<Lot>();
         nextLotNumber = 1;
     }
 
@@ -31,6 +33,7 @@ public class Auction
     public void enterLot(String description)
     {
         lots.add(new Lot(nextLotNumber, description));
+        lotesSinApuestas.add(new Lot(nextLotNumber, description));
         nextLotNumber++;
     }
 
@@ -62,6 +65,14 @@ public class Auction
             if(successful) {
                 System.out.println("The bid for lot number " +
                     lotNumber + " was successful.");
+                int index = 0;
+                boolean encontrado = false;
+                while(index<lotesSinApuestas.size() && !encontrado){
+                    if (lotesSinApuestas.get(index).getNumber() == lotNumber){
+                        lotesSinApuestas.remove(index);
+                    }
+                    index++;
+                }
             }
             else {
                 // Report which bid is higher.
@@ -115,5 +126,12 @@ public class Auction
                 + objetoSubastado.getHighestBid().getBidder().getName());
             }
         }
+    }
+    /**
+     * Método que devuelve los items que no tienen ninguna puja.
+     */
+    public ArrayList getUnsold()
+    {
+        return lotesSinApuestas;
     }
 }
