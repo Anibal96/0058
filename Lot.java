@@ -57,8 +57,8 @@ public class Lot
     {
         String details = number + ": " + description;
         if(highestBid != null) {
-            details += "    Bid: " + 
-                       highestBid.getValue();
+            details += "    Bid: " + highestBid.getValue();
+                       
         }
         else {
             details += "    (No bid)";
